@@ -106,20 +106,24 @@ public class YoutubePlatform : IPlatform
     public async Task PlayTrack(QueuedLavalinkPlayer player, InteractionContext context, string query,
         bool queueNext = false)
     {
-        const string address = ProxySecrets.Address;
-        const string username = ProxySecrets.Username;
-        const string password = ProxySecrets.Password;
+        // The proxy is only there to give YouTube a residential egress IP. On the NAS the
+        // bot is already on the home connection, so PROXY_ENABLED=false sends requests out
+        // directly from the same address, without depending on a tunnel that lives on the
+        // droplet's loopback and only exists while the home server PC is awake.
+        var handler = new HttpClientHandler();
 
-        var proxy = new WebProxy(address)
+        if (ProxySecrets.ShouldUseProxy)
         {
-            Credentials = new NetworkCredential(username, password)
-        };
-
-        var handler = new HttpClientHandler
+            handler.Proxy = new WebProxy(ProxySecrets.Address)
+            {
+                Credentials = new NetworkCredential(ProxySecrets.Username, ProxySecrets.Password)
+            };
+            handler.UseProxy = true;
+        }
+        else
         {
-            Proxy = proxy,
-            UseProxy = true
-        };
+            handler.UseProxy = false;
+        }
 
         var httpClient = new HttpClient(handler);
         var youtube = new YoutubeClient(httpClient);
