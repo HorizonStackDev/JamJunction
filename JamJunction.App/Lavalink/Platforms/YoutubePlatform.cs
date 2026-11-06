@@ -108,8 +108,7 @@ public class YoutubePlatform : IPlatform
     {
         // The proxy is only there to give YouTube a residential egress IP. On the NAS the
         // bot is already on the home connection, so PROXY_ENABLED=false sends requests out
-        // directly from the same address, without depending on a tunnel that lives on the
-        // droplet's loopback and only exists while the home server PC is awake.
+        // directly from the same address, with no tunnel to depend on.
         var handler = new HttpClientHandler();
 
         if (ProxySecrets.ShouldUseProxy)
