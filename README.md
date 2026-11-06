@@ -117,4 +117,3 @@ The interactive player embed includes 15 buttons across 3 rows.
 | 🤖 **Invite** | [Add Jam Junction to your server](https://discord.com/oauth2/authorize?client_id=1181700334561796227) |
 | 🎩 **Top.gg** | [Rate & review Jam Junction](https://top.gg/bot/1181700334561796227) |
 | ☕ **Ko-fi** | [Support development](https://ko-fi.com/jamjunction) |
-| 🌊 **Hosting** | [Digital Ocean](https://www.digitalocean.com) — great and affordable bot hosting |
